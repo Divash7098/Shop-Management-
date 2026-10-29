@@ -1,0 +1,11 @@
+{
+  "name": "Shop Management",
+  "short_name": "Shop Manager",
+  "description": "Store inventory, employee attendance, salary and advance records",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f6fa",
+  "theme_color": "#102a43",
+  "icons": []
+}

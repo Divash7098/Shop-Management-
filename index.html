@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102a43">
+<title>Shop Management</title>
+<style>
+:root{--navy:#102a43;--blue:#1769aa;--bg:#f3f6fa;--card:#fff;--text:#172b4d;--muted:#627d98;--line:#d9e2ec;--green:#16805d;--red:#c0392b;--amber:#a15c00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:11px 14px;background:var(--blue);color:white;font-weight:650}.secondary{background:#e7eef7;color:var(--navy)}.danger{background:#fde8e7;color:#a61b1b}.app-header{background:var(--navy);color:white;padding:18px 16px 16px;position:sticky;top:0;z-index:3;box-shadow:0 2px 10px #102a4322}.headrow{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:21px;font-weight:800;letter-spacing:.2px}.sub{font-size:12px;color:#c8d8e8;margin-top:3px}.role-pill{font-size:11px;border:1px solid #8ba6c1;border-radius:20px;padding:5px 8px;white-space:nowrap}.tabs{display:flex;gap:7px;overflow-x:auto;padding:12px 12px 2px;background:var(--navy);scrollbar-width:none}.tabs button{flex:0 0 auto;background:transparent;color:#c8d8e8;padding:9px 12px;border-radius:9px 9px 0 0}.tabs button.active{background:var(--bg);color:var(--navy)}main{max-width:900px;margin:0 auto;padding:16px 13px 38px}.page-title{font-size:23px;margin:4px 0 5px}.muted{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:16px 0}.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px;box-shadow:0 2px 6px #102a4308}.stat .label{font-size:12px;color:var(--muted)}.stat .value{font-size:24px;font-weight:800;margin-top:5px;overflow-wrap:anywhere}.panel{margin:13px 0}.panel h3{margin:0 0 12px;font-size:17px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field.full{grid-column:1/-1}label{font-size:12px;font-weight:700;color:#486581}input,select{width:100%;padding:11px;border:1px solid #bcccdc;border-radius:9px;background:white;color:var(--text);min-width:0}input:focus,select:focus{outline:2px solid #9cc7ee;border-color:var(--blue)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px}.empty{text-align:center;padding:20px;color:var(--muted)}.badge{display:inline-block;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:700}.present{background:#d8f3e8;color:#12664a}.absent{background:#fde8e7;color:#a61b1b}.low{color:var(--red);font-weight:800}.note{background:#fff4d6;color:#744b00;border:1px solid #f4d58a;padding:12px;border-radius:12px;font-size:12px;line-height:1.5;margin:12px 0}.login-wrap{max-width:420px;margin:10vh auto;padding:18px}.login-card{background:white;padding:22px;border-radius:18px;border:1px solid var(--line);box-shadow:0 8px 28px #102a4312}.login-card h1{margin:0 0 6px}.small{font-size:11px;color:var(--muted);line-height:1.5}.hidden{display:none!important}.rowtitle{display:flex;justify-content:space-between;gap:10px;align-items:center}.rowtitle h3{margin-bottom:0}.section-gap{margin-top:18px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#102a43;color:white;padding:11px 16px;border-radius:12px;box-shadow:0 6px 20px #0002;z-index:10;max-width:90%;font-size:13px}.footer{text-align:center;font-size:11px;color:var(--muted);padding:12px}.money{white-space:nowrap}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.app-header{padding-left:max(16px,calc((100% - 900px)/2));padding-right:max(16px,calc((100% - 900px)/2))}.tabs{padding-left:max(12px,calc((100% - 900px)/2));padding-right:max(12px,calc((100% - 900px)/2))}}
+@media(max-width:390px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.stat .value{font-size:21px}}
+</style>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+<div id="loginView" class="login-wrap">
+  <div class="login-card">
+    <div style="font-size:34px">🏪</div>
+    <h1>Shop Management</h1>
+    <p class="muted">A simple store, stock and staff record app.</p>
+    <form id="loginForm">
+      <div class="field"><label for="loginName">Your name</label><input id="loginName" required placeholder="e.g. Store Owner"></div>
+      <div class="field" style="margin-top:10px"><label for="loginEmail">Email (for this demo profile)</label><input id="loginEmail" type="email" required placeholder="you@example.com"></div>
+      <div class="field" style="margin-top:10px"><label for="loginRole">Access role</label><select id="loginRole"><option value="owner">Owner</option><option value="manager">Manager</option></select></div>
+      <button style="width:100%;margin-top:15px">Open dashboard</button>
+    </form>
+    <p class="small" style="margin-top:14px">Demo login only: this does not verify your identity or create a secure online account. Data is saved on this device/browser.</p>
+  </div>
+</div>
+<div id="appView" class="hidden">
+<header class="app-header">
+ <div class="headrow"><div><div class="brand">🏪 Shop Management</div><div class="sub">Store • Stock • Staff • Salary</div></div><span id="rolePill" class="role-pill">OWNER</span></div>
+ <div class="headrow" style="margin-top:10px"><div id="welcome" class="sub"></div><button class="secondary" id="logoutBtn" style="padding:7px 10px;font-size:12px">Switch profile</button></div>
+</header>
+<nav class="tabs" id="tabs">
+ <button class="active" data-page="dashboard">Home</button><button data-page="inventory">Inventory</button><button data-page="employees">Employees</button><button data-page="attendance">Attendance</button><button data-page="payroll">Salary & Advance</button><button data-page="backup">Backup</button>
+</nav>
+<main id="main"></main>
+<div class="footer">Shop Management • Starter prototype</div>
+</div>
+<div id="toast" class="toast hidden"></div>
+<script>
+const KEY='shopManagementPrototype_v1';
+const today=()=>new Date().toISOString().slice(0,10);
+const money=n=>'₹'+(Number(n||0)).toLocaleString('en-IN',{maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initial={products:[],employees:[],attendance:[],advances:[],payments:[]};
+let db=loadDB(), profile=null, page='dashboard', editProduct=null, editEmployee=null;
+function loadDB(){try{return {...initial,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return {...initial}}}
+function saveDB(){localStorage.setItem(KEY,JSON.stringify(db))}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.remove('hidden');setTimeout(()=>el.classList.add('hidden'),2400)}
+function showApp(){document.getElementById('loginView').classList.add('hidden');document.getElementById('appView').classList.remove('hidden');document.getElementById('welcome').textContent=`Signed in as ${profile.name}`;document.getElementById('rolePill').textContent=profile.role.toUpperCase();render()}
+function setPage(p){page=p;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render();window.scrollTo({top:0,behavior:'smooth'})}
+document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();profile={name:document.getElementById('loginName').value.trim(),email:document.getElementById('loginEmail').value.trim(),role:document.getElementById('loginRole').value};localStorage.setItem('shopManagementProfile',JSON.stringify(profile));showApp()});
+document.getElementById('logoutBtn').onclick=()=>{profile=null;document.getElementById('appView').classList.add('hidden');document.getElementById('loginView').classList.remove('hidden')};
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(b)setPage(b.dataset.page)});
+function panel(title,body){return `<section class="panel"><h3>${title}</h3>${body}</section>`}
+function empty(msg){return `<div class="empty">${msg}</div>`}
+function stats(label,value,sub=''){return `<div class="stat"><div class="label">${label}</div><div class="value">${value}</div>${sub?`<div class="muted">${sub}</div>`:''}</div>`}
+function render(){
+ const m=document.getElementById('main');
+ if(page==='dashboard'){
+ const stockValue=db.products.reduce((s,p)=>s+Number(p.cost||0)*Number(p.stock||0),0);
+ const low=db.products.filter(p=>Number(p.stock)<=Number(p.lowAt||0));
+ const absent=db.attendance.filter(a=>a.date===today()&&a.status==='Absent').length;
+ m.innerHTML=`<h1 class="page-title">Dashboard</h1><div class="muted">Your store at a glance • ${today()}</div>
+ <div class="grid">${stats('Products',db.products.length)}${stats('Employees',db.employees.length)}${stats('Stock value',money(stockValue))}${stats('Absent today',absent)}</div>
+ ${panel('Quick actions',`<div class="actions"><button onclick="setPage('inventory')">＋ Add product</button><button onclick="setPage('employees')">＋ Add employee</button><button onclick="setPage('attendance')">Mark attendance</button><button class="secondary" onclick="setPage('payroll')">Salary & advances</button></div>`)}
+ ${panel(`Low stock ${low.length?`(${low.length})`:''}`,low.length?`<div class="tablewrap"><table><tr><th>Product</th><th>In stock</th><th>Alert at</th></tr>${low.map(p=>`<tr><td>${esc(p.name)}</td><td class="low">${p.stock}</td><td>${p.lowAt||0}</td></tr>`).join('')}</table></div>`:empty('No low-stock alerts. Add products to get started.')}
+ <div class="note"><b>Important:</b> This prototype stores data only in this browser on this phone. It is not yet a secure shared online app. Use Backup to export your records.</div>`;
+ }else if(page==='inventory'){
+ m.innerHTML=`<h1 class="page-title">Inventory</h1><div class="muted">Products, wholesale cost, selling price and stock.</div>
+ ${panel(editProduct?'Edit product':'Add a product',`<form id="productForm"><div class="formgrid">
+ <div class="field"><label>Product name *</label><input name="name" required value="${esc(editProduct?.name||'')}" placeholder="e.g. Rice 1 kg"></div>
+ <div class="field"><label>Category</label><input name="category" value="${esc(editProduct?.category||'')}" placeholder="e.g. Grocery"></div>
+ <div class="field"><label>Wholesale cost (₹) *</label><input name="cost" type="number" min="0" step=".01" required value="${esc(editProduct?.cost??'')}"></div>
+ <div class="field"><label>Selling price (₹)</label><input name="price" type="number" min="0" step=".01" value="${esc(editProduct?.price??'')}"></div>
+ <div class="field"><label>Stock quantity *</label><input name="stock" type="number" min="0" step="1" required value="${esc(editProduct?.stock??'0')}"></div>
+ <div class="field"><label>Low-stock alert at</label><input name="lowAt" type="number" min="0" step="1" value="${esc(editProduct?.lowAt??'5')}"></div>
+ </div><div class="actions"><button>${editProduct?'Save changes':'Add product'}</button>${editProduct?'<button type="button" class="secondary" onclick="cancelProductEdit()">Cancel</button>':''}</div></form>`)}
+ ${panel(`Product list (${db.products.length})`,db.products.length?`<div class="tablewrap"><table><tr><th>Product</th><th>Wholesale</th><th>Sell price</th><th>Stock</th><th></th></tr>${db.products.map(p=>`<tr><td><b>${esc(p.name)}</b><div class="muted">${esc(p.category||'Uncategorized')}</div></td><td class="money">${money(p.cost)}</td><td class="money">${money(p.price)}</td><td>${p.stock<=p.lowAt?`<span class="low">${p.stock}</span>`:p.stock}</td><td><button class="secondary" style="padding:6px 9px" onclick="editP('${p.id}')">Edit</button> <button class="danger" style="padding:6px 9px" onclick="deleteP('${p.id}')">Delete</button></td></tr>`).join('')}</table></div>`:empty('No products yet. Add your first product above.')}`;
+ document.getElementById('productForm').onsubmit=saveProduct;
+ }else if(page==='employees'){
+ m.innerHTML=`<h1 class="page-title">Employees</h1><div class="muted">Keep staff details and monthly salary in one place.</div>
+ ${panel(editEmployee?'Edit employee':'Add an employee',`<form id="employeeForm"><div class="formgrid">
+ <div class="field"><label>Employee name *</label><input name="name" required value="${esc(editEmployee?.name||'')}" placeholder="Full name"></div>
+ <div class="field"><label>Phone (optional)</label><input name="phone" type="tel" value="${esc(editEmployee?.phone||'')}" placeholder="Phone number"></div>
+ <div class="field"><label>Monthly salary (₹) *</label><input name="salary" type="number" min="0" step=".01" required value="${esc(editEmployee?.salary??'')}"></div>
+ <div class="field"><label>Joining date</label><input name="joined" type="date" value="${esc(editEmployee?.joined||today())}"></div>
+ </div><div class="actions"><button>${editEmployee?'Save changes':'Add employee'}</button>${editEmployee?'<button type="button" class="secondary" onclick="cancelEmployeeEdit()">Cancel</button>':''}</div></form>`)}
+ ${panel(`Employee list (${db.employees.length})`,db.employees.length?`<div class="tablewrap"><table><tr><th>Name</th><th>Monthly salary</th><th>Advance balance</th><th></th></tr>${db.employees.map(e=>`<tr><td><b>${esc(e.name)}</b><div class="muted">${esc(e.phone||'No phone')} • Joined ${esc(e.joined||'—')}</div></td><td class="money">${money(e.salary)}</td><td class="money">${money(balance(e.id))}</td><td><button class="secondary" style="padding:6px 9px" onclick="editE('${e.id}')">Edit</button> <button class="danger" style="padding:6px 9px" onclick="deleteE('${e.id}')">Delete</button></td></tr>`).join('')}</table></div>`:empty('No employees yet. Add an employee above.')}`;
+ document.getElementById('employeeForm').onsubmit=saveEmployee;
+ }else if(page==='attendance'){
+ const empOptions=db.employees.map(e=>`<option value="${e.id}">${esc(e.name)}</option>`).join('');
+ m.innerHTML=`<h1 class="page-title">Attendance</h1><div class="muted">Record who was present or absent on each date.</div>
+ ${db.employees.length?panel('Mark attendance',`<form id="attendanceForm"><div class="formgrid"><div class="field"><label>Employee *</label><select name="employeeId" required>${empOptions}</select></div><div class="field"><label>Date *</label><input type="date" name="date" required value="${today()}"></div><div class="field"><label>Status *</label><select name="status"><option>Present</option><option>Absent</option><option>Half-day</option><option>Leave</option></select></div><div class="field"><label>Note (optional)</label><input name="note" placeholder="Reason / note"></div></div><div class="actions"><button>Save attendance</button></div></form>`):panel('Mark attendance',empty('Add an employee first, then you can record attendance.'))}
+ ${panel(`Attendance records (${db.attendance.length})`,db.attendance.length?`<div class="tablewrap"><table><tr><th>Date</th><th>Employee</th><th>Status</th><th>Note</th><th></th></tr>${[...db.attendance].sort((a,b)=>b.date.localeCompare(a.date)).map(a=>`<tr><td>${esc(a.date)}</td><td>${esc(empName(a.employeeId))}</td><td><span class="badge ${a.status==='Present'?'present':a.status==='Absent'?'absent':''}">${esc(a.status)}</span></td><td>${esc(a.note||'—')}</td><td><button class="danger" style="padding:6px 9px" onclick="deleteA('${a.id}')">Delete</button></td></tr>`).join('')}</table></div>`:empty('No attendance recorded yet.')}`;
+ const af=document.getElementById('attendanceForm');if(af)af.onsubmit=saveAttendance;
+ }else if(page==='payroll'){
+ const empOptions=db.employees.map(e=>`<option value="${e.id}">${esc(e.name)}</option>`).join('');
+ m.innerHTML=`<h1 class="page-title">Salary & Advance</h1><div class="muted">Track advances paid and salary payments. Amounts are records, not automatic bank transactions.</div>
+ ${db.employees.length?panel('Record an advance',`<form id="advanceForm"><div class="formgrid"><div class="field"><label>Employee *</label><select name="employeeId" required>${empOptions}</select></div><div class="field"><label>Amount (₹) *</label><input name="amount" type="number" min=".01" step=".01" required></div><div class="field"><label>Date *</label><input name="date" type="date" value="${today()}" required></div><div class="field"><label>Note</label><input name="note" placeholder="e.g. festival advance"></div></div><div class="actions"><button>Save advance</button></div></form>`):panel('Record an advance',empty('Add an employee first.'))}
+ ${db.employees.length?panel('Record salary payment',`<form id="paymentForm"><div class="formgrid"><div class="field"><label>Employee *</label><select name="employeeId" required>${empOptions}</select></div><div class="field"><label>Amount paid (₹) *</label><input name="amount" type="number" min=".01" step=".01" required></div><div class="field"><label>Payment date *</label><input name="date" type="date" value="${today()}" required></div><div class="field"><label>Salary month</label><input name="month" type="month" value="${today().slice(0,7)}"></div><div class="field full"><label>Note</label><input name="note" placeholder="e.g. October salary"></div></div><div class="actions"><button>Save salary payment</button></div></form>`):''}
+ ${panel('Employee salary summary',db.employees.length?`<div class="tablewrap"><table><tr><th>Employee</th><th>Monthly salary</th><th>Advance balance</th><th>Paid this month</th></tr>${db.employees.map(e=>`<tr><td>${esc(e.name)}</td><td class="money">${money(e.salary)}</td><td class="money">${money(balance(e.id))}</td><td class="money">${money(db.payments.filter(p=>p.employeeId===e.id&&p.month===today().slice(0,7)).reduce((s,p)=>s+Number(p.amount),0))}</td></tr>`).join('')}</table></div>`:empty('Add employees to see salary summary.'))}
+ ${panel('Advance history',db.advances.length?`<div class="tablewrap"><table><tr><th>Date</th><th>Employee</th><th>Amount</th><th>Note</th><th></th></tr>${[...db.advances].sort((a,b)=>b.date.localeCompare(a.date)).map(a=>`<tr><td>${esc(a.date)}</td><td>${esc(empName(a.employeeId))}</td><td class="money">${money(a.amount)}</td><td>${esc(a.note||'—')}</td><td><button class="danger" style="padding:6px 9px" onclick="deleteAdvance('${a.id}')">Delete</button></td></tr>`).join('')}</table></div>`:empty('No advances recorded yet.'))}
+ ${panel('Salary payment history',db.payments.length?`<div class="tablewrap"><table><tr><th>Date</th><th>Employee</th><th>Month</th><th>Amount</th><th></th></tr>${[...db.payments].sort((a,b)=>b.date.localeCompare(a.date)).map(p=>`<tr><td>${esc(p.date)}</td><td>${esc(empName(p.employeeId))}</td><td>${esc(p.month||'—')}</td><td class="money">${money(p.amount)}</td><td><button class="danger" style="padding:6px 9px" onclick="deletePayment('${p.id}')">Delete</button></td></tr>`).join('')}</table></div>`:empty('No salary payments recorded yet.'))}`;
+ const af=document.getElementById('advanceForm');if(af)af.onsubmit=saveAdvance;const pf=document.getElementById('paymentForm');if(pf)pf.onsubmit=savePayment;
+ }else if(page==='backup'){
+ m.innerHTML=`<h1 class="page-title">Backup & Data</h1><div class="muted">Keep a backup before changing phones or clearing browser data.</div>
+ ${panel('Export backup',`<p class="muted">Download all products, employees, attendance, advances and salary payment records as a JSON backup.</p><button id="exportBtn">Download backup</button>`)}
+ ${panel('Import backup',`<p class="muted">Choose a backup JSON file previously exported from this app. Import replaces the records currently stored on this device.</p><div class="field"><label>Backup file</label><input id="importFile" type="file" accept=".json,application/json"></div><div class="actions"><button id="importBtn">Import backup</button></div>`)}
+ ${panel('Clear all records',`<p class="muted">This permanently clears the records saved in this browser. Export a backup first.</p><button class="danger" id="clearBtn">Clear all records</button>`)}
+ <div class="note"><b>Before real-world use:</b> This is a starter prototype. Login is not secure authentication and data does not sync to another phone. A production version needs secure owner/manager accounts, cloud database, access permissions and backups.</div>`;
+ document.getElementById('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Shop Management',version:1,exportedAt:new Date().toISOString(),data:db},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='shop-management-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href);toast('Backup downloaded')};
+ document.getElementById('importBtn').onclick=()=>{const f=document.getElementById('importFile').files[0];if(!f)return toast('Choose a backup file first');const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);const d=x.data||x;if(!Array.isArray(d.products)||!Array.isArray(d.employees))throw Error('invalid');if(confirm('Import will replace current records. Continue?')){db={...initial,...d};saveDB();render();toast('Backup imported')}}catch(e){toast('That backup file is not valid')}};r.readAsText(f)};
+ document.getElementById('clearBtn').onclick=()=>{if(confirm('Delete ALL store records from this browser? This cannot be undone unless you have a backup.')){db={...initial};saveDB();render();toast('All records cleared')}};
+ }
+}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function saveProduct(ev){ev.preventDefault();const f=new FormData(ev.target),p={id:editProduct?.id||id(),name:f.get('name').trim(),category:f.get('category').trim(),cost:Number(f.get('cost')),price:Number(f.get('price')||0),stock:Number(f.get('stock')),lowAt:Number(f.get('lowAt')||0)};if(editProduct)db.products=db.products.map(x=>x.id===p.id?p:x);else db.products.push(p);editProduct=null;saveDB();render();toast('Product saved')}
+function editP(pid){editProduct=db.products.find(p=>p.id===pid);render();window.scrollTo({top:0,behavior:'smooth'})}
+function cancelProductEdit(){editProduct=null;render()}
+function deleteP(pid){if(confirm('Delete this product?')){db.products=db.products.filter(p=>p.id!==pid);saveDB();render();toast('Product deleted')}}
+function saveEmployee(ev){ev.preventDefault();const f=new FormData(ev.target),e={id:editEmployee?.id||id(),name:f.get('name').trim(),phone:f.get('phone').trim(),salary:Number(f.get('salary')),joined:f.get('joined')};if(editEmployee)db.employees=db.employees.map(x=>x.id===e.id?e:x);else db.employees.push(e);editEmployee=null;saveDB();render();toast('Employee saved')}
+function editE(eid){editEmployee=db.employees.find(e=>e.id===eid);render();window.scrollTo({top:0,behavior:'smooth'})}
+function cancelEmployeeEdit(){editEmployee=null;render()}
+function deleteE(eid){if(confirm('Delete this employee? Attendance, advance and payment history will remain but may no longer show the employee name. Continue?')){db.employees=db.employees.filter(e=>e.id!==eid);saveDB();render();toast('Employee deleted')}}
+function saveAttendance(ev){ev.preventDefault();const f=new FormData(ev.target),a={id:id(),employeeId:f.get('employeeId'),date:f.get('date'),status:f.get('status'),note:f.get('note').trim()};const existing=db.attendance.findIndex(x=>x.employeeId===a.employeeId&&x.date===a.date);if(existing>=0){if(!confirm('Attendance already exists for this employee and date. Replace it?'))return;db.attendance[existing]=a}else db.attendance.push(a);saveDB();render();toast('Attendance saved')}
+function deleteA(aid){if(confirm('Delete this attendance record?')){db.attendance=db.attendance.filter(a=>a.id!==aid);saveDB();render()}}
+function saveAdvance(ev){ev.preventDefault();const f=new FormData(ev.target);db.advances.push({id:id(),employeeId:f.get('employeeId'),amount:Number(f.get('amount')),date:f.get('date'),note:f.get('note').trim()});saveDB();render();toast('Advance saved')}
+function savePayment(ev){ev.preventDefault();const f=new FormData(ev.target);db.payments.push({id:id(),employeeId:f.get('employeeId'),amount:Number(f.get('amount')),date:f.get('date'),month:f.get('month'),note:f.get('note').trim()});saveDB();render();toast('Salary payment saved')}
+function deleteAdvance(aid){if(confirm('Delete this advance record?')){db.advances=db.advances.filter(a=>a.id!==aid);saveDB();render()}}
+function deletePayment(pid){if(confirm('Delete this salary payment record?')){db.payments=db.payments.filter(p=>p.id!==pid);saveDB();render()}}
+function empName(eid){return db.employees.find(e=>e.id===eid)?.name||'Deleted employee'}
+function balance(eid){return db.advances.filter(a=>a.employeeId===eid).reduce((s,a)=>s+Number(a.amount),0)}
+try{const saved=JSON.parse(localStorage.getItem('shopManagementProfile')||'null');if(saved&&saved.name&&saved.email){profile=saved;showApp()}}catch(e){}
+</script>
+
+<script>
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+
+</body>
+</html>
